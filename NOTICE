@@ -1,0 +1,14 @@
+Sentinel Plan Manager (Solana)
+
+Built on Sentinel. https://sentinel.co
+
+The code in this repository is licensed under the Sentinel dVPN License (see LICENSE).
+The following files are vendored unmodified (apart from the devnet program
+address stamped into dvpn.devnet.json) from sentinel-official/sentinel-solana, under
+the same license, https://github.com/sentinel-official/sentinel-solana/blob/main/LICENSE :
+
+  chain/idl/dvpn.source.json   (sentinel-programs/idl/dvpn.json @ cb33092e)
+  chain/idl/dvpn.devnet.json   (derived from dvpn.source.json by scripts/patch-idl.mjs)
+  proto/daemon.proto           (sentinel-dvpnd daemon.proto @ cb33092e)
+
+Third-party npm packages keep their own licences; see package-lock.json.

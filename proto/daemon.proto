@@ -1,0 +1,366 @@
+syntax = "proto3";
+
+package sentinel.daemon.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/sentinel-official/sentinel-go-sdk/v3/daemon/v1;daemonv1";
+
+message Version {
+  string commit = 1;
+  string tag = 2;
+  string network = 3;
+  string program_id = 4;
+  string mint = 5;
+}
+
+message GetVersionRequest {}
+
+message GetVersionResponse {
+  Version version = 1;
+}
+
+service DaemonService {
+  rpc GetVersion(GetVersionRequest) returns (GetVersionResponse) {}
+}
+
+message Usage {
+  uint64 rx_bytes = 1;
+  uint64 tx_bytes = 2;
+  uint64 seconds = 3;
+}
+
+message Terms {
+  uint32 basis = 1;
+  uint64 price = 2;
+  uint64 prepay = 3;
+}
+
+message NewChannel {
+  uint32 mode = 1;
+  uint64 escrow = 2;
+}
+
+message TicketRequest {
+  string provider = 1;
+  string subscription = 2;
+}
+
+message Credential {
+  oneof kind {
+    string channel = 1;
+    NewChannel new_channel = 2;
+    TicketRequest ticket_request = 3;
+    string ticket_hash = 4;
+  }
+}
+
+message Session {
+  string id = 1;
+  string node = 2;
+  string status = 3;
+  string service = 4;
+  Usage usage = 5;
+  uint64 spent = 6;
+  google.protobuf.Timestamp started_at = 7;
+  google.protobuf.Timestamp ended_at = 8;
+  string error = 9;
+  string channel = 10;
+  string ticket_hash = 11;
+  string proxy_endpoint = 12;
+}
+
+message StartSessionRequest {
+  string node = 1;
+  Credential credential = 2;
+  Terms terms = 3;
+}
+
+message StartSessionResponse {
+  Session session = 1;
+}
+
+message StopSessionRequest {
+  string id = 1;
+}
+
+message StopSessionResponse {
+  Session session = 1;
+  bool kill_switch_released = 2;
+  bool dns_revert_failed = 3;
+}
+
+message GetSessionRequest {
+  string id = 1;
+}
+
+message GetSessionResponse {
+  Session session = 1;
+}
+
+message WatchSessionRequest {
+  string id = 1;
+}
+
+message WatchSessionResponse {
+  Session session = 1;
+}
+
+message ListSessionsRequest {}
+
+message ListSessionsResponse {
+  repeated Session sessions = 1;
+}
+
+message Channel {
+  string address = 1;
+  string node = 2;
+  uint32 mode = 3;
+  uint64 escrow = 4;
+  uint64 cumulative = 5;
+  int64 opened_at = 6;
+  string status = 7;
+}
+
+message ListChannelsRequest {}
+
+message ListChannelsResponse {
+  repeated Channel channels = 1;
+}
+
+message Ticket {
+  string hash = 1;
+  string provider = 2;
+  string node = 3;
+  string subscription = 4;
+  int64 expires_at = 5;
+  uint64 data_cap_bytes = 6;
+}
+
+message ListTicketsRequest {}
+
+message ListTicketsResponse {
+  repeated Ticket tickets = 1;
+}
+
+service ClientService {
+  rpc StartSession(StartSessionRequest) returns (StartSessionResponse) {}
+  rpc StopSession(StopSessionRequest) returns (StopSessionResponse) {}
+  rpc GetSession(GetSessionRequest) returns (GetSessionResponse) {}
+  rpc WatchSession(WatchSessionRequest) returns (stream WatchSessionResponse) {}
+  rpc ListSessions(ListSessionsRequest) returns (ListSessionsResponse) {}
+  rpc ListChannels(ListChannelsRequest) returns (ListChannelsResponse) {}
+  rpc ListTickets(ListTicketsRequest) returns (ListTicketsResponse) {}
+}
+
+message Prices {
+  uint64 channel_price_per_gb = 1;
+  uint64 channel_price_per_hour = 2;
+  uint64 lease_price_per_hour = 3;
+}
+
+message NodeInfo {
+  string address = 1;
+  string id = 2;
+  string owner = 3;
+  string operator = 4;
+  string status = 5;
+  int64 listed_at = 6;
+  bool live = 7;
+  string service = 8;
+  uint32 peers = 9;
+  Prices prices = 10;
+}
+
+message GetNodeInfoRequest {}
+
+message GetNodeInfoResponse {
+  NodeInfo info = 1;
+}
+
+message NodeSession {
+  string id = 1;
+  string credential = 2;
+  string subject = 3;
+  string peer_id = 4;
+  Usage usage = 5;
+  string status = 6;
+  int64 created_at = 7;
+  int64 updated_at = 8;
+}
+
+message ListNodeSessionsRequest {}
+
+message ListNodeSessionsResponse {
+  repeated NodeSession sessions = 1;
+}
+
+message GetNodeSessionRequest {
+  string id = 1;
+}
+
+message GetNodeSessionResponse {
+  NodeSession session = 1;
+}
+
+message CloseNodeSessionRequest {
+  string id = 1;
+}
+
+message CloseNodeSessionResponse {}
+
+message Position {
+  string address = 1;
+  string kind = 2;
+  string owner = 3;
+  uint32 mode = 4;
+  string status = 5;
+  uint64 escrow = 6;
+  uint64 redeemed = 7;
+  uint64 cumulative = 8;
+  int64 opened_at = 9;
+}
+
+message ListPositionsRequest {}
+
+message ListPositionsResponse {
+  repeated Position positions = 1;
+}
+
+message Redemption {
+  string signature = 1;
+  string kind = 2;
+  repeated string subjects = 3;
+  string status = 4;
+  int64 sent_at = 5;
+  int64 confirmed_at = 6;
+  string error = 7;
+}
+
+message ListRedemptionsRequest {}
+
+message ListRedemptionsResponse {
+  repeated Redemption redemptions = 1;
+}
+
+message RedeemNowRequest {}
+
+message RedeemNowResponse {
+  repeated string signatures = 1;
+}
+
+message HeartbeatNowRequest {}
+
+message HeartbeatNowResponse {}
+
+message SyncConfigNowRequest {}
+
+message SyncConfigNowResponse {}
+
+service NodeService {
+  rpc GetNodeInfo(GetNodeInfoRequest) returns (GetNodeInfoResponse) {}
+  rpc ListNodeSessions(ListNodeSessionsRequest) returns (ListNodeSessionsResponse) {}
+  rpc GetNodeSession(GetNodeSessionRequest) returns (GetNodeSessionResponse) {}
+  rpc CloseNodeSession(CloseNodeSessionRequest) returns (CloseNodeSessionResponse) {}
+  rpc ListPositions(ListPositionsRequest) returns (ListPositionsResponse) {}
+  rpc ListRedemptions(ListRedemptionsRequest) returns (ListRedemptionsResponse) {}
+  rpc RedeemNow(RedeemNowRequest) returns (RedeemNowResponse) {}
+  rpc HeartbeatNow(HeartbeatNowRequest) returns (HeartbeatNowResponse) {}
+  rpc SyncConfigNow(SyncConfigNowRequest) returns (SyncConfigNowResponse) {}
+}
+
+message ProviderInfo {
+  string address = 1;
+  string id = 2;
+  string owner = 3;
+  string operator = 4;
+  string status = 5;
+  uint32 nodes = 6;
+  uint32 leases = 7;
+}
+
+message GetProviderInfoRequest {}
+
+message GetProviderInfoResponse {
+  ProviderInfo info = 1;
+}
+
+message RosterNode {
+  string node = 1;
+  string plan = 2;
+  bool live = 3;
+  int64 probed_at = 4;
+  string lease = 5;
+}
+
+message ListRosterNodesRequest {}
+
+message ListRosterNodesResponse {
+  repeated RosterNode nodes = 1;
+}
+
+message AddRosterNodesRequest {
+  string plan = 1;
+  repeated string nodes = 2;
+}
+
+message AddRosterNodesResponse {}
+
+message RemoveRosterNodesRequest {
+  string plan = 1;
+  repeated string nodes = 2;
+}
+
+message RemoveRosterNodesResponse {}
+
+message Lease {
+  string address = 1;
+  string node = 2;
+  uint32 mode = 3;
+  uint64 escrow = 4;
+  uint64 cumulative = 5;
+  int64 opened_at = 6;
+  string status = 7;
+  bool healthy = 8;
+}
+
+message ListLeasesRequest {}
+
+message ListLeasesResponse {
+  repeated Lease leases = 1;
+}
+
+message IssuedTicket {
+  string hash = 1;
+  string subscription = 2;
+  string user = 3;
+  string node = 4;
+  int64 issued_at = 5;
+  int64 expires_at = 6;
+  uint64 data_cap_bytes = 7;
+}
+
+message ListIssuedTicketsRequest {}
+
+message ListIssuedTicketsResponse {
+  repeated IssuedTicket tickets = 1;
+}
+
+message ProbeNowRequest {}
+
+message ProbeNowResponse {}
+
+message KeepNowRequest {}
+
+message KeepNowResponse {}
+
+service ProviderService {
+  rpc GetProviderInfo(GetProviderInfoRequest) returns (GetProviderInfoResponse) {}
+  rpc ListRosterNodes(ListRosterNodesRequest) returns (ListRosterNodesResponse) {}
+  rpc AddRosterNodes(AddRosterNodesRequest) returns (AddRosterNodesResponse) {}
+  rpc RemoveRosterNodes(RemoveRosterNodesRequest) returns (RemoveRosterNodesResponse) {}
+  rpc ListLeases(ListLeasesRequest) returns (ListLeasesResponse) {}
+  rpc ListIssuedTickets(ListIssuedTicketsRequest) returns (ListIssuedTicketsResponse) {}
+  rpc ProbeNow(ProbeNowRequest) returns (ProbeNowResponse) {}
+  rpc KeepNow(KeepNowRequest) returns (KeepNowResponse) {}
+}

@@ -1,0 +1,103 @@
+Sentinel dVPN License
+
+Copyright (c) 2026 Capybara Publishing LTD, a subsidiary of Nordic DApps Inc.
+All rights reserved, except as expressly granted below.
+
+1. Ownership
+
+The source code of the Sentinel dVPN, together with its components, elements,
+and branding (collectively, the "Software", which excludes the third-party
+material described in section 8), is the intellectual property of
+Capybara Publishing LTD, except for code licensed to it under section 8.
+Capybara Publishing LTD is a private limited company registered in England and
+Wales (registered office: 167-169 Great Portland Street, 5th Floor, London,
+England, W1W 5PF) and a subsidiary of Nordic DApps Inc., a corporation
+incorporated in the State of Delaware, United States of America (registered
+office: 1111B S Governors Ave, STE 23794, Dover, DE 19904).
+
+The Software is developed by Capybara Publishing LTD.
+
+2. Viewing the source code
+
+Anyone may view the source code of the Software.
+
+3. Reusing the source code
+
+Anyone may reuse the source code of the Software, or any of its components, in
+their own applications without prior written permission, provided that all of
+the following conditions are met:
+
+  1. Sentinel Blockchain Program only. The Sentinel dVPN is designed to operate
+     exclusively with the Sentinel Blockchain Program deployed on the Solana
+     blockchain. Neither the reused code nor any application that incorporates
+     it may be used with any other blockchain network or dVPN program, or with
+     any competing white-label VPN solution. In other words, the Software is for
+     building dVPN applications on Sentinel itself, not elsewhere.
+  2. Attribution. The application displays the attribution described in
+     section 4.
+  3. Branding. The application does not use the branding of the Software, except
+     in the attribution required by section 4, and does not present itself as an
+     official Sentinel application.
+  4. Other terms. All other terms of this license are complied with.
+
+4. Attribution
+
+Any reuse of the source code of the Software, or of any of its components,
+requires a visible attribution in the derived work (for example, an application
+that reuses this code). The attribution must use exactly the following wording:
+
+    Built on Sentinel.
+
+The attribution must be accompanied by a visible link to the Sentinel website:
+<https://sentinel.co>.
+
+"Visible" means shown to the users of the derived work, for example on its About
+or Credits screen, and not only in its source code.
+
+5. Authorship
+
+  1. Claiming authorship of the unmodified source code is strictly prohibited.
+  2. Modifications to the source code, whether minor or substantial, do not
+     confer any right to claim ownership of the Software or to distribute the
+     Software as one's own work.
+
+6. Revocation
+
+Capybara Publishing LTD, Nordic DApps Inc., or any subsidiary of
+Nordic DApps Inc. may revoke any permission granted by this license at its sole
+discretion, at any time, and without prior notice or explanation.
+
+7. Use outside these terms
+
+If any of the conditions for reusing the source code set out in section 3 is not
+met, prior written permission from the copyright holder is required. Use without
+that permission, in violation of this license, constitutes software piracy and a
+serious infringement of intellectual property rights. Violators may be subject
+to legal proceedings under applicable laws worldwide.
+
+8. Third-party material
+
+This license applies solely to the original work comprising the Software. Any
+third-party material included in this repository or in the Sentinel dVPN is
+licensed by its respective authors under its own terms, which govern that
+material to the exclusion of this license. No such third-party material is the
+property of Capybara Publishing LTD or of Nordic DApps Inc. Third-party material
+included in this repository is attributed in the CREDITS.md file.
+
+The Software may incorporate source code originating from other repositories of
+Nordic DApps Inc. or of its other subsidiaries. In respect of any such code,
+Nordic DApps Inc. or the relevant subsidiary, as its original author, has
+granted Capybara Publishing LTD an irrevocable, perpetual, and worldwide license
+to reuse, modify, and redistribute that code under the terms of this license.
+Accordingly, that code is licensed to recipients solely under this license and
+not under any other terms.
+
+9. Disclaimer of warranties and liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,0 +1,15 @@
+# gitleaks config: default rules, plus one allowlisted value.
+# The value is a public test vector (sha256 of the node-API domain tag
+# 'sentinel-dvpn/api-request/v1', from the cb33 Go SDK), not a secret. Older commits
+# of scripts/test-unit.mjs carry it without the inline gitleaks:allow marker.
+# Matching the exact value instead of a commit fingerprint keeps working after a
+# history rewrite changes every commit hash.
+title = 'plans-solana'
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = 'public node-API domain test vector (not a secret)'
+regexTarget = 'match'
+regexes = ['''cfc919d8360f88cf73f2e6a91518f7e8f8a66e03a020845563025b6dce83a900''']

@@ -1,0 +1,28 @@
+services:
+  plan-manager:
+    build: .
+    container_name: sentinel-plan-manager-solana
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    environment:
+      SOLANA_NETWORK: ${SOLANA_NETWORK:-devnet}
+      # Dedicated RPC first; the public devnet RPC rate-limits getProgramAccounts.
+      SOLANA_RPC_URLS: ${SOLANA_RPC_URLS:-https://api.devnet.solana.com}
+      DVPN_PROGRAM_ID: ${DVPN_PROGRAM_ID:-}
+      DVPN_MINT: ${DVPN_MINT:-}
+      # Provider daemon control socket(s): <providerPda>=unix:///sockets/daemon.sock
+      DVPND_PROVIDER_SOCKETS: ${DVPND_PROVIDER_SOCKETS:-}
+      PRIVY_APP_ID: ${PRIVY_APP_ID:-}
+      PRIVY_APP_SECRET: ${PRIVY_APP_SECRET:-}
+      PRIVY_CLIENT_ID: ${PRIVY_CLIENT_ID:-}
+      # Optional: pin the cookie encryption key (64-char hex); otherwise generated under /data.
+      SESSION_KEY: ${SESSION_KEY:-}
+      PORT: 3003
+    volumes:
+      - plan-manager-data:/data
+      # Mount the provider daemon's socket directory so the console can reach its gRPC control API.
+      # - /path/to/dvpnd-provider:/sockets:ro
+
+volumes:
+  plan-manager-data:

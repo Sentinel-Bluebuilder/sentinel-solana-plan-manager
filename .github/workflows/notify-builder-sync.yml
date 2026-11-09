@@ -1,0 +1,16 @@
+name: Notify Sentinel builder
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Request source reconciliation
+        env:
+          GH_TOKEN: ${{ secrets.BUILDER_DISPATCH_TOKEN }}
+        run: gh api --method POST repos/Sentinel-Bluebuilder/sentinel-builder-sync/dispatches -f event_type=source-updated

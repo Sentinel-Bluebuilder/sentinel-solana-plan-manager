@@ -1,0 +1,79 @@
+{
+  "name": "sentinel-plan-manager-solana",
+  "version": "0.1.0",
+  "description": "Sentinel dVPN plan manager on Solana — Express operator console + CLI driving the dvpn program and the provider daemon",
+  "type": "module",
+  "bin": {
+    "plans": "./cli.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "cli": "node cli.js",
+    "doctor": "node scripts/doctor.mjs",
+    "patch-idl": "node scripts/patch-idl.mjs",
+    "build:vendor": "node scripts/bundle-vendor.mjs",
+    "postinstall": "node scripts/patch-idl.mjs && node scripts/bundle-vendor.mjs",
+    "test": "node scripts/test-unit.mjs && node scripts/test-privy-wire.mjs && node scripts/test-provider-cache.mjs && node scripts/test-all-handlers.mjs && node scripts/test-wallet-relay.mjs",
+    "test:provider-cache": "node scripts/test-provider-cache.mjs",
+    "test:unit": "node scripts/test-unit.mjs",
+    "test:handlers": "node scripts/test-all-handlers.mjs",
+    "test:relay": "node scripts/test-wallet-relay.mjs",
+    "test:e2e": "node scripts/cli-e2e.mjs",
+    "test:cli-e2e": "node scripts/cli-e2e.mjs",
+    "test:privy": "node scripts/test-privy-wire.mjs"
+  },
+  "files": [
+    "cli.js",
+    "server.js",
+    "public/",
+    "lib/",
+    "chain/",
+    "proto/",
+    "scripts/patch-idl.mjs",
+    "scripts/bundle-vendor.mjs",
+    "scripts/doctor.mjs",
+    "routes/",
+    "start.bat",
+    "plans.cmd",
+    ".env.example",
+    "README.md",
+    "PLANS.md",
+    "MANIFESTO.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sentinel-Bluebuilder/sentinel-plan-manager-solana.git"
+  },
+  "keywords": [
+    "sentinel",
+    "dvpn",
+    "solana",
+    "anchor",
+    "plan-manager"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
+    "@grpc/grpc-js": "^1.12.6",
+    "@grpc/proto-loader": "^0.7.13",
+    "@privy-io/js-sdk-core": "^0.79.4",
+    "@scure/bip39": "^2.0.1",
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4",
+    "borsh": "^2.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "ed25519-hd-key": "^1.3.0",
+    "qrcode": "^1.5.4",
+    "tweetnacl": "^1.0.3",
+    "bs58": "^4.0.1",
+    "@privy-io/node": "^0.38.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  }
+}
